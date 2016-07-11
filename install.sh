@@ -1,21 +1,28 @@
+
+#!/bin/bash
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir ~/.vim/bundle -p
 
-if ! [[ "$1" == "--simple-mode" ]]; then
-    sudo apt install ctags build-essential cmake python-dev silversearcher-ag llvm
+if test "$1" != "--simple-mode"; then
+    sudo apt install ctags build-essential cmake python-dev silversearcher-ag clang -y
 fi
 
 BASEDIR=$(dirname $0)
 cp $BASEDIR/.vimrc  ~/.vimrc
-cp $BASEDIR/.vimrc.bundles  ~/.vimrc.bundles
+if test "$1" = "--simple-mode"; then
+    cp $BASEDIR/.vimrc.simple.bundles  ~/.vimrc.bundles
+else
+    cp $BASEDIR/.vimrc.bundles  ~/.vimrc.bundles
+fi
+
 vim -u $HOME/.vimrc.bundles +PlugInstall! +PlugClean! +qall
 cd $HOME/.vim/bundle/YouCompleteMe
 
-if ! [[ "$1" == "--simple-mode" ]]; then
-    if [ -z $(which node) ]; then
-        ./install.sh --clang-completer --system-libclang
+if test "$1" != "--simple-mode"; then
+    if test -z $(which node); then
+        ./install.py --clang-completer --system-libclang
     else
-        ./install.sh --tern-completer --clang-completer --system-libclang
+        ./install.py --tern-completer --clang-completer --system-libclang
     fi
 fi
