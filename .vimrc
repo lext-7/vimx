@@ -8,6 +8,11 @@ endif
 set whichwrap=b,s,<,>,[,]
 set backspace=indent,eol,start
 
+
+set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
+set enc=utf8
+set fencs=utf8,gbk,gb2312,gb18030
+
 " 设置 gvim 显示字体
 " set guifont=YaHei\ Consolas\ Hybrid\ 11.5
 " 禁止折行
