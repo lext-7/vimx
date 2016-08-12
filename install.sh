@@ -4,8 +4,14 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir ~/.vim/bundle -p
 
+system=$(uname)
+
 if test "$1" != "--simple-mode"; then
-    sudo apt install ctags build-essential cmake python-dev silversearcher-ag clang -y
+    if test "$system" = "Darwin"; then
+        brew install ctags the_silver_searcher cmake
+    else
+        sudo apt install ctags build-essential cmake python-dev silversearcher-ag clang -y
+    if
 fi
 
 BASEDIR=$(dirname $0)
