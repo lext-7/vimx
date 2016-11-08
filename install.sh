@@ -11,7 +11,7 @@ if test "$1" != "--simple-mode"; then
         brew install ctags the_silver_searcher cmake
     else
         sudo apt install ctags build-essential cmake python-dev silversearcher-ag clang -y
-    if
+    fi
 fi
 
 BASEDIR=$(dirname $0)
