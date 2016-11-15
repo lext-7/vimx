@@ -17,6 +17,9 @@ set fencs=utf8,gbk,gb2312,gb18030
 " set guifont=YaHei\ Consolas\ Hybrid\ 11.5
 " 禁止折行
 
+" 启用鼠标
+set mouse=a
+
 " set nowrap
 " 开启实时搜索功能
 set incsearch
