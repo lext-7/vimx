@@ -25,14 +25,14 @@ fi
 vim -u $HOME/.vimrc.bundles +PlugInstall! +PlugClean! +qall
 cd $HOME/.vim/bundle/YouCompleteMe
 
-youComplteMeCmd="./install.py --clang-completer"
 if test "$1" != "--simple-mode"; then
+    youComplteMeCmd="./install.py --clang-completer"
     if test -n $(which node); then
         youComplteMeCmd=${youComplteMeCmd} --tern-completer
     fi
     if test "$system" != "Darwin"; then
         youComplteMeCmd=${youComplteMeCmd} --system-libclang 
     fi
+    $youComplteMeCmd
 fi
-$youComplteMeCmd
 
