@@ -6,12 +6,17 @@ call plug#begin('~/.vim/bundle')
 
 " 配色
 Plug 'tomasr/molokai'
+Plug 'joshdick/onedark.vim'
+let g:lightline = {
+    \ 'colorscheme': 'onedark',
+\}
 
 " 状态栏
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_theme = 'onedark'
 
 " 对齐
 Plug 'nathanaelkane/vim-indent-guides'
@@ -263,6 +268,10 @@ Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'ap/vim-css-color'
 Plug 'mattn/emmet-vim'
 Plug 'evanmiller/nginx-vim-syntax'
+
+" 搜索
+Plug 'rking/ag.vim'
+let g:ag_working_path_mode="r"
 
 filetype plugin indent on
 " All of your Plugs must be added before the following line

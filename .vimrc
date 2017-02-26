@@ -95,7 +95,7 @@ nnoremap <Leader>wj <C-W>j
 
 set background=dark
 set t_Co=256
-colorscheme molokai
+colorscheme onedark
 
 " 将外部命令 wmctrl 控制窗口最大化的命令行参数封装成一个 vim 的函数
 fun! ToggleFullscreen()
