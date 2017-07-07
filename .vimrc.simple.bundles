@@ -204,6 +204,10 @@ Plug 'evanmiller/nginx-vim-syntax'
 Plug 'rking/ag.vim'
 let g:ag_working_path_mode="r"
 
+Plug 'sbdchd/neoformat'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'editorconfig/editorconfig-vim'
+
 filetype plugin indent on
 " All of your Plugs must be added before the following line
 call plug#end()           " required
