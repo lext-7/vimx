@@ -93,9 +93,15 @@ nnoremap <Leader>wk <C-W>k
 " 跳转至下方的子窗口
 nnoremap <Leader>wj <C-W>j
 
+" set background=dark
+" set t_Co=256
+" colorscheme onedark
+if (has("termguicolors"))
+  set termguicolors
+endif
 set background=dark
-set t_Co=256
-colorscheme onedark
+" colorscheme spacemacs-theme
+colorscheme space-vim-dark
 
 " 将外部命令 wmctrl 控制窗口最大化的命令行参数封装成一个 vim 的函数
 fun! ToggleFullscreen()
@@ -108,3 +114,4 @@ map <silent> <F11> :call ToggleFullscreen()<CR>
 
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
+set clipboard=unnamed

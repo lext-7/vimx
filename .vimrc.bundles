@@ -1,202 +1,158 @@
 set nocompatible              " be iMproved, required
+
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 call plug#begin('~/.vim/bundle')
 
 " 配色
-Plug 'tomasr/molokai'
-Plug 'joshdick/onedark.vim'
-let g:lightline = {
-    \ 'colorscheme': 'onedark',
-\}
+" Plug 'tomasr/molokai'
+" Plug 'joshdick/onedark.vim'
+" let g:lightline = {
+"    \ 'colorscheme': 'onedark',
+" \}
 
-" 状态栏
-Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme = 'onedark'
+" airline {{{
+    Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+    " let g:airline_theme = 'onedark'
+    " unicode symbols
+    let g:airline_left_sep = '▶'
+    let g:airline_left_alt_sep = '❯'
+    let g:airline_right_sep = '◀'
+    let g:airline_right_alt_sep = '❮'
+    let g:airline#extensions#tabline#formatter = 'unique_tail'
+" }}}
 
-" 对齐
-Plug 'nathanaelkane/vim-indent-guides'
-"let g:indent_guides_enable_on_vim_startup=1
-" 从第二层开始可视化显示缩进
-"let g:indent_guides_start_level=2
-" 色块宽度
-"let g:indent_guides_guide_size=1
-" 快捷键 i 开/关缩进可视化
-:nmap <silent> <Leader>i <Plug>IndentGuidesToggle
+" vim-indent-guides {{{
+    Plug 'nathanaelkane/vim-indent-guides'
+    "let g:indent_guides_enable_on_vim_startup=1
+    " 从第二层开始可视化显示缩进
+    "let g:indent_guides_start_level=2
+    " 色块宽度
+    "let g:indent_guides_guide_size=1
+    " 快捷键 i 开/关缩进可视化
+    :nmap <silent> <Leader>i <Plug>IndentGuidesToggle
+" }}}
 
-" 查找
-Plug 'dyng/ctrlsf.vim'
-nnoremap <Leader>sp :CtrlSF<CR>
-let g:ctrlsf_mapping = {
-        \ "open"  : "<Space>",
-        \ "openb" : "O",
-        \ "tab"   : "t",
-        \ "tabb"  : "T",
-        \ "prevw" : "p",
-        \ "quit"  : "q",
-        \ "next"  : "<C-J>",
-        \ "prev"  : "<C-K>",
-        \ "pquit" : "q",
-        \ }
+" ctrlsf {{{
+    Plug 'dyng/ctrlsf.vim'
+    nnoremap <Leader>sp :CtrlSF<CR>
+    let g:ctrlsf_mapping = {
+            \ "open"  : "<Space>",
+            \ "openb" : "O",
+            \ "tab"   : "t",
+            \ "tabb"  : "T",
+            \ "prevw" : "p",
+            \ "quit"  : "q",
+            \ "next"  : "<C-J>",
+            \ "prev"  : "<C-K>",
+            \ "pquit" : "q",
+            \ }
+" }}}
+
+
 " 替换、多行选择
 Plug 'terryma/vim-multiple-cursors'
 
-let g:multi_cursor_use_default_mapping=0
-" Default mapping
-let g:multi_cursor_next_key='<C-m>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
+" nerdcommenter {{{
+    Plug 'scrooloose/nerdcommenter'
+    " Add extra space around delimiters when commenting, remove them when
+    " uncommenting
+    let g:NERDSpaceDelims = 1
 
-" 注释
-Plug 'scrooloose/nerdcommenter'
+    " Always remove the extra spaces when uncommenting regardless of whether
+    " NERDSpaceDelims is set
+    let g:NERDRemoveExtraSpaces = 1
+    let g:NERDTrimTrailingWhitespace = 1
+" }}}
 
-" 提示
-Plug 'Valloric/YouCompleteMe'
-" YCM 补全菜单配色
-" 菜单
-" highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
-" 选中项
-" highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
-" 补全功能在注释中同样有效
-let g:ycm_complete_in_comments=1
-" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
-let g:ycm_confirm_extra_conf=0
-" 开启 YCM 标签补全引擎
-let g:ycm_collect_identifiers_from_tags_files=1
-" 引入 C++ 标准库tags
-set tags+=/data/misc/software/misc./vim/stdcpp.tags
-" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-inoremap <leader>; <C-x><C-o>
-" 补全内容不以分割子窗口形式出现，只显示补全列表
-" set completeopt-=preview
-" 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
-" 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
-" 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
-" 开启 YCM 标签引擎
-let g:ycm_collect_identifiers_from_tags_files=1
-" 引入 C++ 标准库tags
-set tags+=/data/misc/software/misc./vim/stdcpp.tags
-inoremap <leader>; <C-x><C-o>
+" YouCompleteMe {{{
+    " 提示
+    Plug 'Valloric/YouCompleteMe'
+    " 补全功能在注释中同样有效
+    let g:ycm_complete_in_comments=1
+    " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+    let g:ycm_confirm_extra_conf=0
+    " 开启 YCM 标签补全引擎
+    let g:ycm_collect_identifiers_from_tags_files=1
+    " 引入 C++ 标准库tags
+    set tags+=/data/misc/software/misc./vim/stdcpp.tags
+    " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
+    inoremap <leader>; <C-x><C-o>
+    " 语法关键字补全
+    let g:ycm_seed_identifiers_with_syntax=1
+    " 开启 YCM 标签引擎
+    let g:ycm_collect_identifiers_from_tags_files=1
+    " 引入 C++ 标准库tags
+    set tags+=/data/misc/software/misc./vim/stdcpp.tags
+    inoremap <leader>; <C-x><C-o>
 
-"youcompleteme  默认tab  s-tab 和自动补全冲突
-"let g:ycm_key_list_select_completion=['<c-n>']
-let g:ycm_key_list_select_completion = ['<Down>']
-"let g:ycm_key_list_previous_completion=['<c-p>']
-let g:ycm_key_list_previous_completion = ['<Up>']
-let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
-let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_tags_files = 1
-" 开启语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
+    "youcompleteme  默认tab  s-tab 和自动补全冲突
+    "let g:ycm_key_list_select_completion=['<c-n>']
+    let g:ycm_key_list_select_completion = ['<Down>']
+    "let g:ycm_key_list_previous_completion=['<c-p>']
+    let g:ycm_key_list_previous_completion = ['<Up>']
+    let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
+    let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
+    let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+    let g:ycm_collect_identifiers_from_tags_files = 1
+    " 开启语法关键字补全
+    let g:ycm_seed_identifiers_with_syntax=1
 
-"let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
+    "let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
 
-" 跳转到定义处, 分屏打开
-let g:ycm_goto_buffer_command = 'horizontal-split'
-" nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+    " 跳转到定义处, 分屏打开
+    let g:ycm_goto_buffer_command = 'horizontal-split'
+    " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+    nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 
-" 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
-" old version
-if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
-    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"
-endif
-" new version
-if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
-    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
-endif
+    if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
+        let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+    endif
 
-" 直接触发自动补全 insert模式下
-" let g:ycm_key_invoke_completion = '<C-Space>'
-" 黑名单,不启用
-let g:ycm_filetype_blacklist = {
-    \ 'tagbar' : 1,
-    \ 'gitcommit' : 1,
-    \}
+    " 直接触发自动补全 insert模式下
+    " let g:ycm_key_invoke_completion = '<C-Space>'
+    " 黑名单,不启用
+    let g:ycm_filetype_blacklist = {
+        \ 'tagbar' : 1,
+        \ 'gitcommit' : 1,
+        \}
+" }}}
 
-Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
-map <C-n> :NERDTreeToggle<CR>
-map <leader>n :NERDTreeToggle<CR>
-" 设置NERDTree子窗口宽度
-" let NERDTreeWinSize=32
-" 设置NERDTree子窗口位置
-" let NERDTreeWinPos="right"
-" 显示隐藏文件
-" let NERDTreeShowHidden=1
-" NERDTree 子窗口中不显示冗余帮助信息
-" let NERDTreeMinimalUI=1
-" 删除文件时自动删除文件对应 buffer
-let NERDTreeAutoDeleteBuffer=1
-" let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+" nerdtree {{{
+    Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
+    map <C-n> :NERDTreeToggle<CR>
+    map <leader>n :NERDTreeToggle<CR>
+    " 设置NERDTree子窗口宽度
+    " let NERDTreeWinSize=32
+    " 设置NERDTree子窗口位置
+    " let NERDTreeWinPos="right"
+    " 显示隐藏文件
+    " let NERDTreeShowHidden=1
+    " NERDTree 子窗口中不显示冗余帮助信息
+    " let NERDTreeMinimalUI=1
+    " 删除文件时自动删除文件对应 buffer
+    let NERDTreeAutoDeleteBuffer=1
+    " let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+" }}}
 
-Plug 'scrooloose/syntastic'
-let g:syntastic_error_symbol='>>'
-let g:syntastic_warning_symbol='>'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" ultisnips {{{
+    " Track the engine.
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+    " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
+    let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+    " If you want :UltiSnipsEdit to split your window.
+    let g:UltiSnipsEditSplit="vertical"
+" }}}
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-function! ToggleErrors()
-     let old_last_winnr = winnr('$')
-     lclose
-     if old_last_winnr == winnr('$')
-         " Nothing was closed, open syntastic_error location panel
-         Errors
-     endif
- endfunction
- nnoremap <Leader>er :call ToggleErrors()<cr>
-
- " ,en ,ep to jump between errors
-function! <SID>LocationPrevious()
-try
-   lprev
-catch /^Vim\%((\a\+)\)\=:E553/
-   llast
-endtry
-endfunction
-
-function! <SID>LocationNext()
-try
-   lnext
-catch /^Vim\%((\a\+)\)\=:E553/
-   lfirst
-endtry
-endfunction
-
-nnoremap <silent> <Plug>LocationPrevious    :<C-u>exe 'call <SID>LocationPrevious()'<CR>
-nnoremap <silent> <Plug>LocationNext        :<C-u>exe 'call <SID>LocationNext()'<CR>
-nmap <silent> <Leader>ep    <Plug>LocationPrevious
-nmap <silent> <Leader>en    <Plug>LocationNext
-
-" 修改高亮的背景色, 适应主题
-highlight SyntasticErrorSign guifg=white guibg=black
-
-
-" Track the engine.
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 Plug 'Raimondi/delimitMate'
 
@@ -206,8 +162,10 @@ Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 
 Plug 'bronson/vim-trailing-whitespace'
 
+" quick movement
+" easymotion
+"更高效的移动 [,, + w/fx/h/j/k/l]
 Plug 'Lokaltog/vim-easymotion'
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Trigger a highlight only when pressing f and F.
 let g:qs_highlight_on_keys = ['f', 'F']
@@ -219,9 +177,25 @@ Plug 'vim-scripts/matchit.zip'
 
 Plug 'kshenoy/vim-signature'
 
-Plug 'terryma/vim-expand-region'
+" vim-expand-region {{{
+    Plug 'terryma/vim-expand-region'
+    vmap v <Plug>(expand_region_expand)
+    vmap V <Plug>(expand_region_shrink)
+    let g:expand_region_text_objects = {
+        \ 'iw'  :0,
+        \ 'iW'  :0,
+        \ 'i"'  :0,
+        \ 'i''' :0,
+        \ 'i]'  :1,
+        \ 'ib'  :1,
+        \ 'iB'  :1,
+        \ 'il'  :1,
+        \ 'ii'  :1,
+        \ 'ip'  :0,
+        \ 'ie'  :0,
+        \ }
+" }}}
 
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 
 Plug 'thinca/vim-quickrun'
 
@@ -230,31 +204,34 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'sjl/gundo.vim'
 
-Plug 'kien/rainbow_parentheses.vim'
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" rainbow_parentheses {{{
+    Plug 'kien/rainbow_parentheses.vim'
+    let g:rbpt_colorpairs = [
+        \ ['brown',       'RoyalBlue3'],
+        \ ['Darkblue',    'SeaGreen3'],
+        \ ['darkgray',    'DarkOrchid3'],
+        \ ['darkgreen',   'firebrick3'],
+        \ ['darkcyan',    'RoyalBlue3'],
+        \ ['darkred',     'SeaGreen3'],
+        \ ['darkmagenta', 'DarkOrchid3'],
+        \ ['brown',       'firebrick3'],
+        \ ['gray',        'RoyalBlue3'],
+        \ ['black',       'SeaGreen3'],
+        \ ['darkmagenta', 'DarkOrchid3'],
+        \ ['Darkblue',    'firebrick3'],
+        \ ['darkgreen',   'RoyalBlue3'],
+        \ ['darkcyan',    'SeaGreen3'],
+        \ ['darkred',     'DarkOrchid3'],
+        \ ['red',         'firebrick3'],
+        \ ]
+    let g:rbpt_max = 16
+    let g:rbpt_loadcmd_toggle = 0
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+" }}}
+
 
 Plug 'vim-ctrlspace/vim-ctrlspace'
 set hidden
@@ -267,7 +244,6 @@ Plug 'ternjs/tern_for_vim'
 Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'ap/vim-css-color'
 Plug 'mattn/emmet-vim'
-Plug 'evanmiller/nginx-vim-syntax'
 
 " 搜索
 Plug 'rking/ag.vim'
@@ -276,6 +252,64 @@ let g:ag_working_path_mode="r"
 Plug 'sbdchd/neoformat'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'editorconfig/editorconfig-vim'
+
+Plug 'fatih/vim-go'
+Plug 'Blackrush/vim-gocode'
+
+Plug 'majutsushi/tagbar'
+
+" ale {{{
+    Plug 'w0rp/ale'
+    " Enable completion where available.
+    let g:ale_completion_enabled = 1
+    let g:ale_sign_error = '✖'
+    let g:ale_sign_warning = '➤'
+    let g:ale_echo_msg_error_str = 'E'
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+
+    nmap <silent> <Leader>ep <Plug>(ale_previous_wrap)
+    nmap <silent> <Leader>en <Plug>(ale_next_wrap)
+
+    nnoremap <silent> <Leader>ec :ALEToggle<CR>
+
+    " troggle quickfix list
+    function! ToggleErrors()
+        let old_last_winnr = winnr('$')
+        lclose
+        if old_last_winnr == winnr('$')
+            " Nothing was closed, open syntastic_error location panel
+            lopen
+        endif
+    endfunction
+    nnoremap <Leader>s :call ToggleErrors()<cr>
+
+    let g:ale_set_highlights = 1
+    highlight clear ALEErrorSign
+    highlight clear ALEWarningSign
+
+    let g:ale_lint_on_text_changed = 'never'
+    let g:ale_lint_on_enter = 1
+
+    " Do not lint or fix minified files.
+    let g:ale_pattern_options = {
+    \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+    \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+    \}
+    " If you configure g:ale_pattern_options outside of vimrc, you need this.
+    let g:ale_pattern_options_enabled = 1
+" }}}
+
+" file finder
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+
+
+Plug 'mhinz/vim-signify'
+Plug 'osyo-manga/vim-over'
+
+Plug 'liuchengxu/space-vim-dark'
+Plug 'colepeters/spacemacs-theme.vim'
 
 filetype plugin indent on
 " All of your Plugs must be added before the following line
